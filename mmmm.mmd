@@ -15,6 +15,20 @@ graph TD
       subgraph NPD ["운영 NPD"]
         NPDCP25["API_NPDItemList"]
       end
+      subgraph BW_ ["운영 BW"]
+        BW_CP51["BW_ClosedSalesResult"]
+        BW_CP42["BW_Currency"]
+        BW_CP23["BW_CurrentSKU"]
+        BW_CP49["BW_Customer_OnHand"]
+        BW_CP48["BW_Customer_OrderResult"]
+        BW_CP22["BW_Customer_SalesResult"]
+        BW_CP19["BW_Etc"]
+        BW_CP12["BW_OnHand"]
+        BW_CP20["BW_Short"]
+        BW_CP50["BW_Promotion_SalesResult"]
+        BW_CP21["BW_SalesResult"]
+        BW_CP39["BW_TargetSKU"]
+      end
     end
     subgraph Database ["Database"]
       direction LR
@@ -26,6 +40,7 @@ graph TD
         STGCP10["STG_ItemPrice"]
         STGSP12["STG_LineLaborTx"]
         STGCP25["STG_NPDItemList"]
+
       end
       subgraph Schema_MART ["MART"]
       direction TB
@@ -79,3 +94,5 @@ graph TD
 
 
   style SAP fill:#F8F9F9
+  style MES fill:#F8F9F9
+  style NPD fill:#F8F9F9
