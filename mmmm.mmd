@@ -4,9 +4,9 @@ graph TD
   subgraph subGraph6 ["AWS_Seoul_Region"]
     subgraph EAI ["EAI"]
       subgraph SAP ["운영 ERP (SAP)"]
-        APC37["API_SOPRemainQty"]
-        APC11["API_AvailPromtQty"]
-        APC35["API_CustomerPrice"]
+        APICP37["API_SOPRemainQty"]
+        APICP11["API_AvailPromtQty"]
+        APICP35["API_CustomerPrice"]
       end
     end
     subgraph Database ["Database"]
@@ -22,28 +22,32 @@ graph TD
         MRTCP35["MRT_CustomerPrice"]
       end
       subgraph Schema_BIM ["BIM"]
-        BIM37["BIM_SOPRemainQty"]
-        BIM11["BIM_AvailPromtQty"]
-        MRTCP35["MRT_CustomerPrice"]
+        BIMCP37["BIM_SOPRemainQty"]
+        BIMCP11["BIM_AvailPromtQty"]
+        BIMCP35["BIM_CustomerPrice"]
       end
     end
   end
   subgraph subGraph8 ["AWS_Europe_Region"]
     subgraph o9 ["o9"]
-      CUST37["CUST_SOPRemainQty"]
-      CUST11["CUST_AvailPromtQty"]
+      CSTCP37["CUST_SOPRemainQty"]
+      CSTCP11["CUST_AvailPromtQty"]
+      CSTCP35["CUST_CustomerPrice"]
     end
   end
 
   
 
   %% 스타일 0
-  APC37 -- "API 호출<br>(process-payment)" --> STG37 -.-> CUST37
-  APC11 -- "API 호출<br>(process-payment)" --> STG11 -.-> CUST11
+  APICP37 -- "API 호출<br>(process-payment)" --> STGCP37 -.-> CSTCP37
+  APICP11 -- "API 호출<br>(process-payment)" --> STGCP11 -.-> CSTCP11
+  APICP35 -- "API 호출<br>(process-payment)" --> STGCP35 -.-> MRTCP35 -.-> BIMCP35 
+
+MRTCP35
 
   %% 스타일 1
-  APC37 -. "핵심 데이터 변환/통합" .-> APC11
- 
+  APC37 -.-> APC11
+  MRTCP35 -. "SDB 관리" .-> CSTCP35
 
 
   %% 스타일 정의 (선택 사항)
