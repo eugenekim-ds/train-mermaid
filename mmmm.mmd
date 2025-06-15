@@ -7,6 +7,7 @@ graph TD
         APICP37["API_SOPRemainQty"]
         APICP11["API_AvailPromtQty"]
         APICP35["API_CustomerPrice"]
+        APICP10["API_ItemPrice"]
       end
     end
     subgraph Database ["Database"]
@@ -16,18 +17,21 @@ graph TD
         STGCP37["STG_SOPRemainQty"]
         STGCP11["STG_AvailPromtQty"]
         STGCP35["STG_CustomerPrice"]
+        STGCP10["STG_ItemPrice"]
       end
       subgraph Schema_MART ["MART"]
       direction TB
         MRTCP37["MRT_SOPRemainQty"]
         MRTCP11["MRT_AvailPromtQty"]
         MRTCP35["MRT_CustomerPrice"]
+        MRTCP10["MRT_ItemPrice"]
       end
       subgraph Schema_BIM ["BIM"]
       direction TB
         BIMCP37["BIM_SOPRemainQty"]
         BIMCP11["BIM_AvailPromtQty"]
         BIMCP35["BIM_CustomerPrice"]
+        BIMCP10["BIM_ItemPrice"]
       end
     end
   end
@@ -37,6 +41,7 @@ graph TD
       CSTCP37["CUST_SOPRemainQty"]
       CSTCP11["CUST_AvailPromtQty"]
       CSTCP35["CUST_CustomerPrice"]
+      CSTCP10["CUST_ItemPrice"]
     end
   end
 
@@ -45,15 +50,18 @@ graph TD
   %% 스타일 0
   APICP37 -- "API 호출<br>(process-payment)" --> STGCP37 -.-> CSTCP37
   APICP11 -- "API 호출<br>(process-payment)" --> STGCP11 -.-> CSTCP11
-  APICP35 -- "API 호출<br>(process-payment)" --> STGCP35 -.-> MRTCP35 -.-> BIMCP35 
-
-MRTCP35
+  APICP35 -- "API 호출<br>(process-payment)" --> STGCP35 
+  APICP10 -- "API 호출<br>(process-payment)" --> STGCP10
 
   %% 스타일 1
-  APICP37 -.-> APICP11
   MRTCP35 -. "SDB 관리" .-> CSTCP35
+  MRTCP10 -. "SDB 관리" .-> CSTCP10
 
+  %% 스타일 2
+  STGCP35 -.-> MRTCP35 -.-> BIMCP35
+  STGCP10 -.-> MRTCP10 -.-> BIMCP10
 
   %% 스타일 정의 (선택 사항)
   linkStyle 0 stroke:blue,stroke-width:2px;
   linkStyle 1 stroke:green,stroke-width:2px,stroke-dasharray: 5 5;
+  linkStyle 1 stroke:black,stroke-width:2px,stroke-dasharray: 5 5;
