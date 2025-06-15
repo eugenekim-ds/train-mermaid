@@ -33,9 +33,10 @@ graph TD
         BIMCP35["BIM_CustomerPrice"]
         BIMCP10["BIM_ItemPrice"]
       end
-      subgraph Schema_BIM ["BIMATRIX_AUD"]
-        BIM00["BIMATRIX_TABLE"]
-      end
+     end
+     subgraph Schema_BIM ["BIMATRIX_AUD"]
+       BIM00["BIMATRIX_TABLE"]
+     end
     end
   end
   subgraph subGraph8 ["AWS_Europe_Region"]
@@ -48,8 +49,6 @@ graph TD
     end
   end
 
-  
-
   %% 스타일 0
   APICP37 ==> STGCP37 ==> CSTCP37
   APICP11 ==> STGCP11 ==> CSTCP11
@@ -57,8 +56,6 @@ graph TD
   APICP10 ==> STGCP10
   MRTCP35 ==> BIM00
   MRTCP10 ==> BIM00
-
-
 
   %% 스타일 1
   MRTCP35 -. "SDB 관리" .-> CSTCP35
