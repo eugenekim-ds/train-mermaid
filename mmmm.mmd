@@ -6,21 +6,25 @@ graph TD
       subgraph SAP ["운영 ERP (SAP)"]
         APC37["API_SOPRemainQty"]
         APC11["API_AvailPromtQty"]
+        APC35["API_CustomerPrice"]
       end
     end
     subgraph Database ["Database"]
-      direction LR
+      direction TB
       subgraph Schema_Staging["Staging"]
-        STG37["STG_SOPRemainQty"]
-        STG11["STG_AvailPromtQty"]
+        STGCP37["STG_SOPRemainQty"]
+        STGCP11["STG_AvailPromtQty"]
+        STGCP35["STG_CustomerPrice"]
       end
       subgraph Schema_MART ["MART"]
-        MART37["MART_SOPRemainQty"]
-        MART11["MART_AvailPromtQty"]
+        MRTCP37["MRT_SOPRemainQty"]
+        MRTCP11["MRT_AvailPromtQty"]
+        MRTCP35["MRT_CustomerPrice"]
       end
       subgraph Schema_BIM ["BIM"]
         BIM37["BIM_SOPRemainQty"]
         BIM11["BIM_AvailPromtQty"]
+        MRTCP35["MRT_CustomerPrice"]
       end
     end
   end
