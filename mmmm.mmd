@@ -4,64 +4,46 @@ graph LR
   subgraph subGraph6 ["AWS_Seoul_Region"]
     subgraph EAI ["EAI"]
       subgraph SAP ["운영 ERP (SAP)"]
-        APICP37["API_SOPRemainQty"]
-        APICP11["API_AvailPromtQty"]
-        APICP35["API_CustomerPrice"]
-        APICP10["API_ItemPrice"]
+        APICP37["API_SOPRemainQty<br>API_AvailPromtQty<br>API_LicenseInfo<br>API_OrderAvailStatus<br>API_ProdOrder<br>API_PurchaseInfo<br>API_SOPTracking<br>API_GTRGEC"]
+        APICP35["API_CustomerPrice<br>API_ItemPrice<br>API_ODMPurchaseOrder<br>API_SupplyQAExpect"]
       end
       subgraph MES ["운영 MES"]
         MESSP12["API_LineLaborTx"]
       end
       subgraph NPD ["운영 NPD"]
-        NPDCP25["API_NPDItemList"]
+        NPDCP25["API_NPDItemList<br>API_SKUIn"]
       end
       subgraph BW_ ["운영 BW"]
-        BW_CP51["BW_ClosedSalesResult"]
-        BW_CP42["BW_Currency"]
-        BW_CP23["BW_CurrentSKU"]
-        BW_CP49["BW_Customer_OnHand"]
-        BW_CP48["BW_Customer_OrderResult"]
-        BW_CP22["BW_Customer_SalesResult"]
-        BW_CP19["BW_Etc"]
-        BW_CP12["BW_OnHand"]
-        BW_CP20["BW_Short"]
-        BW_CP50["BW_Promotion_SalesResult"]
-        BW_CP21["BW_SalesResult"]
-        BW_CP39["BW_TargetSKU"]
+        BW_CP12["BW_OnHand<br>BW_Short"]
+        BW_CP50["BW_Promotion_SalesResult<br>BW_SalesResult<br>BW_TargetSKU<br>BW_ClosedSalesResult<br>BW_Currency<br>BW_CurrentSKU<br>BW_Customer_OnHand<br>BW_Customer_OrderResult<br>BW_Customer_SalesResult<br>BW_Etc"]
+      end
+      subgraph PPT ["구매포털"]
+        PPTCP36["API_SupplierStock"]
       end
     end
     subgraph Database ["Database"]
       subgraph Schema_Staging["Staging"]
-        STGCP37["STG_SOPRemainQty"]
-        STGCP11["STG_AvailPromtQty"]
-        STGCP35["STG_CustomerPrice"]
-        STGCP10["STG_ItemPrice"]
+        STGCP37["STG_SOPRemainQty<br>STG_AvailPromtQty<br>STG_LicenseInfo<br>STG_OrderAvailStatus<br>STG_ProdOrder<br>STG_PurchaseInfo<br>STG_SOPTracking<br>STG_GTRGEC"]
+        STGCP35["STG_CustomerPrice<br>STG_ItemPrice<br>STG_ODMPurchaseOrder<br>STG_SupplyQAExpect"]
         STGSP12["STG_LineLaborTx"]
-        STGCP25["STG_NPDItemList"]
-        STGCP51["STG_closedaccountsales"]
-        STGCP42["STG_currency"]
-        STGCP23["STG_currentsku"]
-        STGCP49["STG_customeronhand"]
-        STGCP48["STG_customerorderresult"]
-        STGCP22["STG_customersalesresult"]
-        STGCP19["STG_miscgoods"]
-        STGCP12["STG_onhand"]
-        STGCP20["STG_ordershortqty"]
-        STGCP50["STG_promotionsales"]
-        STGCP21["STG_salestx"]
-        STGCP39["STG_skutarget"]
+        STGCP25["STG_NPDItemList<br>CUST_SKUIn"]
+        STGCP12["STG_onhand<br>STG_ordershortqty"]
+        STGCP50["STG_Promotion_SalesResult<br>STG_SalesResult<br>STG_TargetSKU<br>STG_ClosedSalesResult<br>STG_Currency<br>STG_CurrentSKU<br>STG_Customer_OnHand<br>STG_Customer_OrderResult<br>STG_Customer_SalesResult<br>STG_Etc"]
+        STGCP36["Cust_SupplierStock"]
       end
       subgraph Schema_MART ["MART"]
-        MRTCP37["MRT_SOPRemainQty"]
-        MRTCP11["MRT_AvailPromtQty"]
-        MRTCP35["MRT_CustomerPrice"]
-        MRTCP10["MRT_ItemPrice"]
+        MRTCP37["MRT_SOPRemainQty<br>MRT_AvailPromtQty<br>MRT_LicenseInfo<br>MRT_OrderAvailStatus<br>MRT_ProdOrder<br>MRT_PurchaseInfo<br>MRT_SOPTracking<br>MRT_GTRGEC"]
+        MRTCP35["MRT_CustomerPrice<br>MRT_ItemPrice<br>MRT_ODMPurchaseOrder<br>MRT_SupplyQAExpect"]
+        MRTCP12["MRT_onhand<br>MRT_ordershortqty"]
+        MRTCP25["MRT_NPDItemList<br>MRT_SKUIn"]
+        MRTCP36["MRT_SupplierStock"]
       end
       subgraph Schema_BIM ["BIM"]
-        BIMCP37["BIM_SOPRemainQty"]
-        BIMCP11["BIM_AvailPromtQty"]
-        BIMCP35["BIM_CustomerPrice"]
-        BIMCP10["BIM_ItemPrice"]
+        BIMCP37["BIM_SOPRemainQty<br>BIM_AvailPromtQty<br>BIM_LicenseInfo<br>BIM_OrderAvailStatus<br>BIM_ProdOrder<br>BIM_PurchaseInfo<br>BIM_SOPTracking<br>BIM_GTRGEC"]
+        BIMCP36["BIM_SupplierStock"]
+        BIMCP35["BIM_CustomerPrice<br>BIM_ItemPrice"]
+        BIMCP12["BIM_onhand<br>BIM_ordershortqty"]
+        BIMCP25["BIM_NPDItemList<br>BIM_SKUIn"]
       end
     end
     subgraph BIM_AUD ["BIMATRIX_AUD"]
@@ -71,73 +53,44 @@ graph LR
 
   subgraph subGraph8 ["AWS_Europe_Region"]
     subgraph o9 ["o9"]
-      CSTCP37["CUST_SOPRemainQty"]
-      CSTCP11["CUST_AvailPromtQty"]
-      CSTCP35["CUST_CustomerPrice"]
-      CSTCP10["CUST_ItemPrice"]
-      CSTCP51["cust_closedaccountsales"]
-      CSTCP42["cust_currency"]
-      CSTCP23["cust_currentsku"]
-      CSTCP49["cust_customeronhand"]
-      CSTCP48["cust_customerorderresult"]
-      CSTCP22["cust_customersalesresult"]
-      CSTCP19["cust_miscgoods"]
-      CSTCP12["cust_onhand"]
-      CSTCP20["cust_ordershortqty"]
-      CSTCP50["cust_promotionsales"]
-      CSTCP21["cust_salestx"]
-      CSTCP39["cust_skutarget"]
-
-
+      CSTCP37["CUST_SOPRemainQty<br>CUST_AvailPromtQty<br>CUST_LicenseInfo<br>CUST_OrderAvailStatus<br>CUST_ProdOrder<br>CUST_PurchaseInfo<br>CUST_SOPTracking<br>Cust_GTRGEC"]
+      CSTCP35["CUST_CustomerPrice<br>CUST_ItemPrice<br>CUST_ODMPurchaseOrder<br>CUST_SupplyQAExpect"]
+      CSTCP12["cust_onhand<br>cust_ordershortqty"]
+      CSTCP50["cust_PromotionSales<br>cust_SalesTx<br>cust_SKUTarget<br>cust_closedaccountsales<br>cust_Currency<br>cust_CurrentSKU<br>cust_CustomerOnHand<br>cust_CustomerOrderResult<br>cust_CustomerSalesResult<br>cust_miscgoods"]
+      CSTCP36["Cust_SupplierStock"]
     end
   end
 
   %% 스타일 0
-  APICP37 ==> STGCP37
-  APICP11 ==> STGCP11
+  APICP37 ==>|"x8 Daily"| STGCP37
   APICP35 ==> STGCP35 
-  APICP10 ==> STGCP10
   MESSP12 ==> STGSP12
   NPDCP25 ==> STGCP25
-  BIMCP35 ==> BIM00
-  BIMCP10 ==> BIM00
+  BIMCP37 ==> BIM00
+  BIMCP36 ==> BIM00
   STGCP37 ==> CSTCP37
-  STGCP11 ==> CSTCP11
-  BW_CP51 ==> STGCP51
-  BW_CP42 ==> STGCP42
-  BW_CP23 ==> STGCP23
-  BW_CP49 ==> STGCP49
-  BW_CP48 ==> STGCP48
-  BW_CP22 ==> STGCP22
-  BW_CP19 ==> STGCP19
-  BW_CP12 ==> STGCP12
-  BW_CP20 ==> STGCP20
-  BW_CP50 ==> STGCP50
-  BW_CP21 ==> STGCP21
-  BW_CP39 ==> STGCP39
-  STGCP51 ==> CSTCP51
-  STGCP42 ==> CSTCP42
-  STGCP23 ==> CSTCP23
-  STGCP49 ==> CSTCP49
-  STGCP48 ==> CSTCP48
-  STGCP22 ==> CSTCP22
-  STGCP19 ==> CSTCP19
-  
-  
-  STGCP50 ==> CSTCP50
-  STGCP21 ==> CSTCP21
-  STGCP39 ==> CSTCP39
+  PPTCP36 ==> STGCP36 -.-> MRTCP36 -.-> BIMCP36
+  BW_CP12 ==> |"x2 Daily"| STGCP12
+  BW_CP50 ==> |"x10 Daily"| STGCP50
+  STGCP50 ==> |"x10"| CSTCP50
+
 
   %% 스타일 1
   MRTCP35 -. "SDB 관리" .-> CSTCP35
-  MRTCP10 -. "SDB 관리" .-> CSTCP10
-
+  MRTCP12 -. "SDB 관리" .-> CSTCP12
+  
   %% 스타일 2
-  STGCP35 -.-> MRTCP35 -.-> BIMCP35
-  STGCP10 -.-> MRTCP10 -.-> BIMCP10
+  STGCP37 -.-> MRTCP37 -.-> BIMCP37
 
+  STGCP12 -.-> MRTCP12 -. "SDB 관리" .-> BIMCP12 ==> BIM00
+  STGCP35 -.-> MRTCP35 -. "SDB 관리" .-> BIMCP35 ==> BIM00
+  STGCP25 -.-> MRTCP25 -. "SDB 관리" .-> BIMCP25 ==> BIM00
+
+ 
 
   style SAP fill:#F8F9F9
-  style EAI fill:#5D6D7E
+  style BW_ fill:#F8F9F9
   style MES fill:#F8F9F9
   style NPD fill:#F8F9F9
+  style EAI fill:#aeb6bf
+  style Database fill:#aeb6bf
