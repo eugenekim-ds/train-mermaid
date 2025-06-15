@@ -9,6 +9,12 @@ graph TD
         APICP35["API_CustomerPrice"]
         APICP10["API_ItemPrice"]
       end
+      subgraph MES ["운영 MES"]
+        MESSP12["API_LineLaborTx"]
+      end
+      subgraph NPD ["운영 NPD"]
+        NPDCP25["API_NPDItemList"]
+      end
     end
     subgraph Database ["Database"]
       direction LR
@@ -18,6 +24,8 @@ graph TD
         STGCP11["STG_AvailPromtQty"]
         STGCP35["STG_CustomerPrice"]
         STGCP10["STG_ItemPrice"]
+        STGSP12["STG_LineLaborTx"]
+        STGCP25["STG_NPDItemList"]
       end
       subgraph Schema_MART ["MART"]
       direction TB
@@ -54,8 +62,11 @@ graph TD
   APICP11 ==> STGCP11 ==> CSTCP11
   APICP35 ==> STGCP35 
   APICP10 ==> STGCP10
+  MESSP12 ==> STGSP12
+  NPDCP25 ==> STGCP25
   BIMCP35 ==> BIM00
   BIMCP10 ==> BIM00
+
 
   %% 스타일 1
   MRTCP35 -. "SDB 관리" .-> CSTCP35
