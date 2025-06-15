@@ -75,6 +75,20 @@ graph LR
       CSTCP11["CUST_AvailPromtQty"]
       CSTCP35["CUST_CustomerPrice"]
       CSTCP10["CUST_ItemPrice"]
+      CSTCP51["cust_closedaccountsales"]
+      CSTCP42["cust_currency"]
+      CSTCP23["cust_currentsku"]
+      CSTCP49["cust_customeronhand"]
+      CSTCP48["cust_customerorderresult"]
+      CSTCP22["cust_customersalesresult"]
+      CSTCP19["cust_miscgoods"]
+      CSTCP12["cust_onhand"]
+      CSTCP20["cust_ordershortqty"]
+      CSTCP50["cust_promotionsales"]
+      CSTCP21["cust_salestx"]
+      CSTCP39["cust_skutarget"]
+
+
     end
   end
 
@@ -101,6 +115,18 @@ graph LR
   BW_CP50 ==> STGCP50
   BW_CP21 ==> STGCP21
   BW_CP39 ==> STGCP39
+  STGCP51 ==> CSTCP51
+  STGCP42 ==> CSTCP42
+  STGCP23 ==> CSTCP23
+  STGCP49 ==> CSTCP49
+  STGCP48 ==> CSTCP48
+  STGCP22 ==> CSTCP22
+  STGCP19 ==> CSTCP19
+  
+  
+  STGCP50 ==> CSTCP50
+  STGCP21 ==> CSTCP21
+  STGCP39 ==> CSTCP39
 
   %% 스타일 1
   MRTCP35 -. "SDB 관리" .-> CSTCP35
