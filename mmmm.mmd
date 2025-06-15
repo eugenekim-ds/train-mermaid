@@ -40,7 +40,18 @@ graph TD
         STGCP10["STG_ItemPrice"]
         STGSP12["STG_LineLaborTx"]
         STGCP25["STG_NPDItemList"]
-
+        STGCP51["STG_closedaccountsales"]
+        STGCP42["STG_currency"]
+        STGCP23["STG_currentsku"]
+        STGCP49["STG_customeronhand"]
+        STGCP48["STG_customerorderresult"]
+        STGCP22["STG_customersalesresult"]
+        STGCP19["STG_miscgoods"]
+        STGCP12["STG_onhand"]
+        STGCP20["STG_ordershortqty"]
+        STGCP50["STG_promotionsales"]
+        STGCP21["STG_salestx"]
+        STGCP39["STG_skutarget"]
       end
       subgraph Schema_MART ["MART"]
       direction TB
@@ -83,6 +94,18 @@ graph TD
   BIMCP10 ==> BIM00
   STGCP37 ==> CSTCP37
   STGCP11 ==> CSTCP11
+  BW_CP51 ==> STGCP51
+  BW_CP42 ==> STGCP42
+  BW_CP23 ==> STGCP23
+  BW_CP49 ==> STGCP49
+  BW_CP48 ==> STGCP48
+  BW_CP22 ==> STGCP22
+  BW_CP19 ==> STGCP19
+  BW_CP12 ==> STGCP12
+  BW_CP20 ==> STGCP20
+  BW_CP50 ==> STGCP50
+  BW_CP21 ==> STGCP21
+  BW_CP39 ==> STGCP39
 
   %% 스타일 1
   MRTCP35 -. "SDB 관리" .-> CSTCP35
