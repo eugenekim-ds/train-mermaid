@@ -58,15 +58,16 @@ graph TD
   end
 
   %% 스타일 0
-  APICP37 ==> STGCP37 ==> CSTCP37
-  APICP11 ==> STGCP11 ==> CSTCP11
+  APICP37 ==> STGCP37
+  APICP11 ==> STGCP11
   APICP35 ==> STGCP35 
   APICP10 ==> STGCP10
   MESSP12 ==> STGSP12
   NPDCP25 ==> STGCP25
   BIMCP35 ==> BIM00
   BIMCP10 ==> BIM00
-
+  STGCP37 ==> CSTCP37
+  STGCP11 ==> CSTCP11
 
   %% 스타일 1
   MRTCP35 -. "SDB 관리" .-> CSTCP35
@@ -75,8 +76,3 @@ graph TD
   %% 스타일 2
   STGCP35 -.-> MRTCP35 -.-> BIMCP35
   STGCP10 -.-> MRTCP10 -.-> BIMCP10
-
-  %% 스타일 정의 (선택 사항)
-  linkStyle 0 stroke:blue,stroke-width:2px;
-  linkStyle 1 stroke:green,stroke-width:2px,stroke-dasharray: 5 5;
-  linkStyle 2 stroke:black,stroke-width:2px,stroke-dasharray: 5 5;
