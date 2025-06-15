@@ -16,12 +16,16 @@ flowchart LR
  subgraph PPT["구매포털"]
         PPTCP36["API_SupplierStock"]
   end
- subgraph EAI["EAI"]
+ subgraph FT_["운영 FT"]
+        FT_CP26["like_item<br>item_sales_fcst<br>item_order_fcst<br>new_item_sales_fcst<br>new_item_order_fcst<br>SalesForecast"]
+  end
+ subgraph EAI["EAI (DAILY)"]
         SAP
         MES
         NPD
         BW_
         PPT
+        FT_
   end
  subgraph Schema_Staging["Staging"]
         STGCP37["STG_SOPRemainQty<br>STG_AvailPromtQty<br>STG_LicenseInfo<br>STG_OrderAvailStatus<br>STG_ProdOrder<br>STG_PurchaseInfo<br>STG_SOPTracking<br>STG_GTRGEC"]
@@ -31,6 +35,7 @@ flowchart LR
         STGCP12["STG_onhand<br>STG_ordershortqty"]
         STGCP50["STG_Promotion_SalesResult<br>STG_SalesResult<br>STG_TargetSKU<br>STG_ClosedSalesResult<br>STG_Currency<br>STG_CurrentSKU<br>STG_Customer_OnHand<br>STG_Customer_OrderResult<br>STG_Customer_SalesResult<br>STG_Etc"]
         STGCP36["Cust_SupplierStock"]
+        STGCP26["like_item<br>item_sales_fcst<br>item_order_fcst<br>new_item_sales_fcst<br>new_item_order_fcst<br>SalesForecast"]
   end
  subgraph Schema_MART["MART"]
         MRTCP37["MRT_SOPRemainQty<br>MRT_AvailPromtQty<br>MRT_LicenseInfo<br>MRT_OrderAvailStatus<br>MRT_ProdOrder<br>MRT_PurchaseInfo<br>MRT_SOPTracking<br>MRT_GTRGEC"]
@@ -39,6 +44,7 @@ flowchart LR
         MRTCP25["MRT_NPDItemList<br>MRT_SKUIn"]
         MRTCP36["MRT_SupplierStock"]
         MRTSP12["MRT_LineLaborTx"]
+        MRTCP26["like_item<br>item_sales_fcst<br>item_order_fcst<br>new_item_sales_fcst<br>new_item_order_fcst<br>SalesForecast"]
   end
  subgraph Schema_BIM["BIM"]
         BIMCP37["BIM_SOPRemainQty<br>BIM_AvailPromtQty<br>BIM_LicenseInfo<br>BIM_OrderAvailStatus<br>BIM_ProdOrder<br>BIM_PurchaseInfo<br>BIM_SOPTracking<br>BIM_GTRGEC"]
@@ -47,6 +53,7 @@ flowchart LR
         BIMCP12["BIM_onhand<br>BIM_ordershortqty"]
         BIMCP25["BIM_NPDItemList<br>BIM_SKUIn"]
         BIMSP12["BIM_LineLaborTx"]
+        BIMCP26["BIM_like_item<br>BIM_item_sales_fcst<br>BIM_item_order_fcst<br>BIM_new_item_sales_fcst<br>BIM_new_item_order_fcst<br>BIM_SalesForecast"]
   end
  subgraph Database["Database"]
         Schema_Staging
@@ -68,6 +75,7 @@ flowchart LR
         CSTCP50["cust_PromotionSales<br>cust_SalesTx<br>cust_SKUTarget<br>cust_closedaccountsales<br>cust_Currency<br>cust_CurrentSKU<br>cust_CustomerOnHand<br>cust_CustomerOrderResult<br>cust_CustomerSalesResult<br>cust_miscgoods"]
         CSTCP36["Cust_SupplierStock"]
         CSTSP12["CUST_LineLaborTx"]
+        CSTCP26["cust_similaritem<br>cust_runitemsalesforecast<br>cust_runitemorderforecast<br>cust_newitemsalesforecast<br>cust_newitemorderforecast<br>cust_ver2salesforecast"]
   end
  subgraph subGraph8["AWS_Europe_Region"]
         o9
@@ -82,12 +90,20 @@ flowchart LR
     PPTCP36 ==> STGCP36
     STGCP36 -.-> MRTCP36
     MRTCP36 -.-> BIMCP36
+    FT_CP26 == x6 Daily(Thursday) ==> STGCP26
+    STGCP26 -.-> MRTCP26
+    MRTCP26 -.-> BIMCP26
+    BIMCP26 ==> BIM00
     BW_CP12 == x2 Daily ==> STGCP12
     BW_CP50 == x10 Daily ==> STGCP50
     STGCP50 == x10 ==> CSTCP50
-    MRTCP35 -. SDB 관리 .-> CSTCP35 & BIMCP35
-    MRTCP12 -. SDB 관리 .-> CSTCP12 & BIMCP12
-    MRTSP12 -. SDB 관리 .-> CSTSP12 & BIMSP12
+    MRTCP35 -. SDB 관리 .-> BIMCP35
+    MRTCP12 -. SDB 관리 .-> BIMCP12
+    MRTSP12 -. SDB 관리 .-> BIMSP12
+    MRTCP35 == SDB 관리 ==> CSTCP35
+    MRTCP12 == SDB 관리 ==> CSTCP12
+    MRTSP12 == SDB 관리 ==> CSTSP12
+    STGCP26 ==> CSTCP26
     STGCP37 -.-> MRTCP37
     MRTCP37 -.-> BIMCP37
     STGCP12 -.-> MRTCP12
@@ -99,7 +115,6 @@ flowchart LR
     BIMCP25 ==> BIM00
     STGSP12 -.-> MRTSP12
     BIMSP12 ==> BIM00
-
 
     style SAP fill:#F8F9F9
     style MES fill:#F8F9F9
