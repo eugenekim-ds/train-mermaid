@@ -12,16 +12,19 @@ graph TD
     subgraph Database ["Database"]
       direction LR
       subgraph Schema_Staging["Staging"]
+      direction TB
         STGCP37["STG_SOPRemainQty"]
         STGCP11["STG_AvailPromtQty"]
         STGCP35["STG_CustomerPrice"]
       end
       subgraph Schema_MART ["MART"]
+      direction TB
         MRTCP37["MRT_SOPRemainQty"]
         MRTCP11["MRT_AvailPromtQty"]
         MRTCP35["MRT_CustomerPrice"]
       end
       subgraph Schema_BIM ["BIM"]
+      direction TB
         BIMCP37["BIM_SOPRemainQty"]
         BIMCP11["BIM_AvailPromtQty"]
         BIMCP35["BIM_CustomerPrice"]
@@ -29,6 +32,7 @@ graph TD
     end
   end
   subgraph subGraph8 ["AWS_Europe_Region"]
+    direction TB
     subgraph o9 ["o9"]
       CSTCP37["CUST_SOPRemainQty"]
       CSTCP11["CUST_AvailPromtQty"]
