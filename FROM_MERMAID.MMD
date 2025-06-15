@@ -1,0 +1,109 @@
+flowchart LR
+ subgraph SAP["운영 ERP (SAP)"]
+        APICP37["API_SOPRemainQty<br>API_AvailPromtQty<br>API_LicenseInfo<br>API_OrderAvailStatus<br>API_ProdOrder<br>API_PurchaseInfo<br>API_SOPTracking<br>API_GTRGEC"]
+        APICP35["API_CustomerPrice<br>API_ItemPrice<br>API_ODMPurchaseOrder<br>API_SupplyQAExpect"]
+  end
+ subgraph MES["운영 MES"]
+        MESSP12["API_LineLaborTx"]
+  end
+ subgraph NPD["운영 NPD"]
+        NPDCP25["API_NPDItemList<br>API_SKUIn"]
+  end
+ subgraph BW_["운영 BW"]
+        BW_CP12["BW_OnHand<br>BW_Short"]
+        BW_CP50["BW_Promotion_SalesResult<br>BW_SalesResult<br>BW_TargetSKU<br>BW_ClosedSalesResult<br>BW_Currency<br>BW_CurrentSKU<br>BW_Customer_OnHand<br>BW_Customer_OrderResult<br>BW_Customer_SalesResult<br>BW_Etc"]
+  end
+ subgraph PPT["구매포털"]
+        PPTCP36["API_SupplierStock"]
+  end
+ subgraph EAI["EAI"]
+        SAP
+        MES
+        NPD
+        BW_
+        PPT
+  end
+ subgraph Schema_Staging["Staging"]
+        STGCP37["STG_SOPRemainQty<br>STG_AvailPromtQty<br>STG_LicenseInfo<br>STG_OrderAvailStatus<br>STG_ProdOrder<br>STG_PurchaseInfo<br>STG_SOPTracking<br>STG_GTRGEC"]
+        STGCP35["STG_CustomerPrice<br>STG_ItemPrice<br>STG_ODMPurchaseOrder<br>STG_SupplyQAExpect"]
+        STGSP12["STG_LineLaborTx"]
+        STGCP25["STG_NPDItemList<br>CUST_SKUIn"]
+        STGCP12["STG_onhand<br>STG_ordershortqty"]
+        STGCP50["STG_Promotion_SalesResult<br>STG_SalesResult<br>STG_TargetSKU<br>STG_ClosedSalesResult<br>STG_Currency<br>STG_CurrentSKU<br>STG_Customer_OnHand<br>STG_Customer_OrderResult<br>STG_Customer_SalesResult<br>STG_Etc"]
+        STGCP36["Cust_SupplierStock"]
+  end
+ subgraph Schema_MART["MART"]
+        MRTCP37["MRT_SOPRemainQty<br>MRT_AvailPromtQty<br>MRT_LicenseInfo<br>MRT_OrderAvailStatus<br>MRT_ProdOrder<br>MRT_PurchaseInfo<br>MRT_SOPTracking<br>MRT_GTRGEC"]
+        MRTCP35["MRT_CustomerPrice<br>MRT_ItemPrice<br>MRT_ODMPurchaseOrder<br>MRT_SupplyQAExpect"]
+        MRTCP12["MRT_onhand<br>MRT_ordershortqty"]
+        MRTCP25["MRT_NPDItemList<br>MRT_SKUIn"]
+        MRTCP36["MRT_SupplierStock"]
+        MRTSP12["MRT_LineLaborTx"]
+  end
+ subgraph Schema_BIM["BIM"]
+        BIMCP37["BIM_SOPRemainQty<br>BIM_AvailPromtQty<br>BIM_LicenseInfo<br>BIM_OrderAvailStatus<br>BIM_ProdOrder<br>BIM_PurchaseInfo<br>BIM_SOPTracking<br>BIM_GTRGEC"]
+        BIMCP36["BIM_SupplierStock"]
+        BIMCP35["BIM_CustomerPrice<br>BIM_ItemPrice<br>MRT_ODMPurchaseOrder<br>MRT_SupplyQAExpect"]
+        BIMCP12["BIM_onhand<br>BIM_ordershortqty"]
+        BIMCP25["BIM_NPDItemList<br>BIM_SKUIn"]
+        BIMSP12["BIM_LineLaborTx"]
+  end
+ subgraph Database["Database"]
+        Schema_Staging
+        Schema_MART
+        Schema_BIM
+  end
+ subgraph BIM_AUD["BIMATRIX_AUD"]
+        BIM00["BIMATRIX_TABLE"]
+  end
+ subgraph subGraph6["AWS_Seoul_Region"]
+        EAI
+        Database
+        BIM_AUD
+  end
+ subgraph o9["o9"]
+        CSTCP37["CUST_SOPRemainQty<br>CUST_AvailPromtQty<br>CUST_LicenseInfo<br>CUST_OrderAvailStatus<br>CUST_ProdOrder<br>CUST_PurchaseInfo<br>CUST_SOPTracking<br>Cust_GTRGEC"]
+        CSTCP35["CUST_CustomerPrice<br>CUST_ItemPrice<br>CUST_ODMPurchaseOrder<br>CUST_SupplyQAExpect"]
+        CSTCP12["cust_onhand<br>cust_ordershortqty"]
+        CSTCP50["cust_PromotionSales<br>cust_SalesTx<br>cust_SKUTarget<br>cust_closedaccountsales<br>cust_Currency<br>cust_CurrentSKU<br>cust_CustomerOnHand<br>cust_CustomerOrderResult<br>cust_CustomerSalesResult<br>cust_miscgoods"]
+        CSTCP36["Cust_SupplierStock"]
+        CSTSP12["CUST_LineLaborTx"]
+  end
+ subgraph subGraph8["AWS_Europe_Region"]
+        o9
+  end
+    APICP37 == x8 Daily ==> STGCP37
+    APICP35 ==> STGCP35
+    MESSP12 ==> STGSP12
+    NPDCP25 ==> STGCP25
+    BIMCP37 ==> BIM00
+    BIMCP36 ==> BIM00
+    STGCP37 ==> CSTCP37
+    PPTCP36 ==> STGCP36
+    STGCP36 -.-> MRTCP36
+    MRTCP36 -.-> BIMCP36
+    BW_CP12 == x2 Daily ==> STGCP12
+    BW_CP50 == x10 Daily ==> STGCP50
+    STGCP50 == x10 ==> CSTCP50
+    MRTCP35 -. SDB 관리 .-> CSTCP35 & BIMCP35
+    MRTCP12 -. SDB 관리 .-> CSTCP12 & BIMCP12
+    MRTSP12 -. SDB 관리 .-> CSTSP12 & BIMSP12
+    STGCP37 -.-> MRTCP37
+    MRTCP37 -.-> BIMCP37
+    STGCP12 -.-> MRTCP12
+    BIMCP12 ==> BIM00
+    STGCP35 -.-> MRTCP35
+    BIMCP35 ==> BIM00
+    STGCP25 -.-> MRTCP25
+    MRTCP25 -. SDB 관리 .-> BIMCP25
+    BIMCP25 ==> BIM00
+    STGSP12 -.-> MRTSP12
+    BIMSP12 ==> BIM00
+
+    style SAP fill:#F8F9F9
+    style MES fill:#F8F9F9
+    style NPD fill:#F8F9F9
+    style BW_ fill:#F8F9F9
+    style EAI fill:#aeb6bf
+
+
